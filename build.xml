@@ -1,0 +1,25 @@
+<project
+	basedir="."
+	default="no-target"
+	xmlns:ivy="antlib:org.apache.ivy.ant"
+>
+	<available classname="org.apache.ivy.Main" property="ivy.installed"/> 
+
+	<target name="install-ivy" description="Install ivy" unless="ivy.installed">
+	    <mkdir dir="${user.home}/.ant/lib"/>
+	    <get dest="${user.home}/.ant/lib/ivy.jar" src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.3.0/ivy-2.3.0.jar"/>
+	    <fail message="Ivy has been installed. Run the build again"/>
+	</target>
+
+	<target name="clean">
+		<delete dir="build" />
+	</target>
+	<target name="compile">
+		<mkdir dir="build" />
+		<mkdir dir="build/classes" />
+		<javac includeantruntime="false" srcdir="src" destdir="build/classes" />
+	</target>
+	<target name="no-target">
+		<echo>please specify the target task to be done. example. &#10;&#13;$> ant build&#10;&#13;</echo>
+	</target>
+</project>
